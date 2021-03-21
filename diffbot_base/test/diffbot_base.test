@@ -1,0 +1,13 @@
+<launch>
+  <!-- Load common test stuff -->
+  <include file="$(find diffbot_base)/test/diffbot_common.launch" />
+
+  <!-- Controller test -->
+  <test test-name="diffbot_base_test"
+        pkg="diffbot_base"
+        type="diffbot_base_test"
+        time-limit="80.0">
+    <remap from="cmd_vel" to="diffbot_controller/cmd_vel" />
+    <remap from="odom" to="diffbot_controller/odom" />
+  </test>
+</launch>
