@@ -216,5 +216,30 @@ target_link_libraries(${PROJECT_NAME}
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
 
+## See also http://wiki.ros.org/rostest/Writing
+
+if (CATKIN_ENABLE_TESTING)
+  find_package(controller_manager REQUIRED)
+  find_package(rostest REQUIRED)
+  
+  include_directories(
+    ${controller_manager_INCLUDE_DIRS}
+  )
+
+  set(test_LIBRARIES
+    ${controller_manager_LIBRARIES}
+  )
+
+
+  #add_executable(diffbot test/diffbot.cpp)
+  #target_link_libraries(diffbot ${catkin_LIBRARIES} ${test_LIBRARIES})
+
+  add_rostest_gtest(diffbot_base_test
+    test/diffbot_base.test
+    test/diffbot_base_test.cpp
+  )
+  target_link_libraries(diffbot_base_test ${catkin_LIBRARIES} ${test_LIBRARIES})
+endif()
+
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
